@@ -3,6 +3,12 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"json": {
+		"parser": {
+			"allowComments": true,
+			"allowTrailingCommas": false
+		}
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
