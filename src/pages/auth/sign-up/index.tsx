@@ -26,7 +26,7 @@ export function SignUp() {
 
 	const navigate = useNavigate();
 
-	const handleSignUp = handleSubmit(async (data) => {
+	const handleSignUp = handleSubmit(async (_) => {
 		try {
 			await new Promise((resolve) => setTimeout(resolve, 2000));
 			toast.success("Restaurante cadastrado com sucesso!", {
