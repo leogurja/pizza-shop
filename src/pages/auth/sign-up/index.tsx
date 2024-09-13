@@ -5,6 +5,8 @@ import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { createRestaurant } from "@/api/create-restaurant";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,7 +14,7 @@ const signUpForm = z.object({
 	email: z.string().email(),
 	restaurantName: z.string(),
 	managerName: z.string(),
-	phoneNumber: z.string(),
+	phone: z.string(),
 });
 
 type SignUpForm = z.infer<typeof signUpForm>;
@@ -26,13 +28,17 @@ export function SignUp() {
 
 	const navigate = useNavigate();
 
-	const handleSignUp = handleSubmit(async (_) => {
+	const { mutateAsync: signUp } = useMutation({
+		mutationFn: createRestaurant,
+	});
+
+	const handleSignUp = handleSubmit(async (data) => {
 		try {
-			await new Promise((resolve) => setTimeout(resolve, 2000));
+			await signUp(data);
 			toast.success("Restaurante cadastrado com sucesso!", {
 				action: {
 					label: "Login",
-					onClick: () => navigate("/sign-in"),
+					onClick: () => navigate(`/sign-in?email=${data.email}`),
 				},
 			});
 		} catch {
@@ -82,8 +88,8 @@ export function SignUp() {
 						</div>
 
 						<div className="space-y-2">
-							<Label htmlFor="phoneNumber">Seu celular</Label>
-							<Input id="phoneNumber" type="tel" {...register("phoneNumber")} />
+							<Label htmlFor="phone">Seu celular</Label>
+							<Input id="phone" type="tel" {...register("phone")} />
 						</div>
 
 						<Button className="w-full" type="submit" disabled={isSubmitting}>
