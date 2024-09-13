@@ -3,8 +3,8 @@ import { api } from "@/lib/axios";
 export interface RestaurantData {
 	name: string;
 	id: string;
-	createdAt: Date | null;
-	updatedAt: Date | null;
+	createdAt: Date;
+	updatedAt: Date;
 	description: string | null;
 	managerId: string | null;
 }

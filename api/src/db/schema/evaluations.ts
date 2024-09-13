@@ -11,7 +11,7 @@ export const evaluations = pgTable("evaluations", {
 	restaurantId: text("restaurant_id").references(() => users.id),
 	rate: integer("rate").notNull(),
 	comment: text("comment"),
-	createdAt: timestamp("created_at").defaultNow(),
+	createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const evaluationsRelations = relations(evaluations, ({ one }) => ({
