@@ -3,6 +3,7 @@ import colors from "tailwindcss/colors";
 
 import { BarChart } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { ProductsPieLabel } from "./products-pie-label";
 
 const data = [
 	{ product: "Pepperoni", amount: 40 },
@@ -44,35 +45,9 @@ export function PopularProductsChart() {
 							innerRadius={64}
 							strokeWidth={8}
 							labelLine={false}
-							label={({
-								cx,
-								cy,
-								midAngle,
-								innerRadius,
-								outerRadius,
-								value,
-								index,
-							}) => {
-								const RADIAN = Math.PI / 180;
-								const radius = 12 + innerRadius + (outerRadius - innerRadius);
-								const x = cx + radius * Math.cos(-midAngle * RADIAN);
-								const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-								return (
-									<text
-										x={x}
-										y={y}
-										className="fill-muted-foreground text-xs"
-										textAnchor={x > cx ? "start" : "end"}
-										dominantBaseline="central"
-									>
-										{data[index].product.length > 12
-											? data[index].product.substring(0, 12).concat("...")
-											: data[index].product}{" "}
-										({value})
-									</text>
-								);
-							}}
+							label={({ index, ...rest }) => (
+								<ProductsPieLabel {...rest} product={data[index].product} />
+							)}
 						>
 							{data.map((_, index) => (
 								<Cell
