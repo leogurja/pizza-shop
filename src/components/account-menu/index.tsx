@@ -1,12 +1,11 @@
-import { getProfile } from "@/api/get-profile";
-import { getRestaurant } from "@/api/get-restaurant";
 import { signOut } from "@/api/sign-out";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Building, ChevronDown, LogOut } from "lucide-react";
+import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import { StoreProfileDialog } from "./store-profile-dialog";
-import { Button } from "./ui/button";
-import { Dialog, DialogTrigger } from "./ui/dialog";
+import { StoreProfileDialog } from "../store-profile-dialog";
+import { Button } from "../ui/button";
+import { Dialog, DialogTrigger } from "../ui/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -14,29 +13,16 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Skeleton } from "./ui/skeleton";
+} from "../ui/dropdown-menu";
+import { ProfileInfo, ProfileInfoSkeleton } from "./profile-info";
+import { RestaurantName, RestaurantNameSkeleton } from "./restaurant-name";
 
 export function AccountMenu() {
 	const navigate = useNavigate();
 
-	const { data: profile, isLoading: isLoadingProfile } = useQuery({
-		queryFn: getProfile,
-		queryKey: ["profile"],
-		staleTime: Number.POSITIVE_INFINITY,
-	});
-
-	const { data: restaurant, isLoading: isLoadingRestaurant } = useQuery({
-		queryKey: ["restaurant"],
-		queryFn: getRestaurant,
-		staleTime: Number.POSITIVE_INFINITY,
-	});
-
 	const { mutateAsync: doSignOut, isPending: isSigninOut } = useMutation({
 		mutationFn: signOut,
-		onSuccess: () => {
-			navigate("/sign-in", { replace: true });
-		},
+		onSuccess: () => navigate("/sign-in", { replace: true }),
 	});
 
 	return (
@@ -47,29 +33,17 @@ export function AccountMenu() {
 						variant="outline"
 						className="flex select-none items-center gap-2"
 					>
-						{isLoadingRestaurant ? (
-							<Skeleton className="h-4 w-40" />
-						) : (
-							restaurant?.name
-						)}
+						<Suspense fallback={<RestaurantNameSkeleton />}>
+							<RestaurantName />
+						</Suspense>
 						<ChevronDown className="size-4" />
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end" className="w-56">
 					<DropdownMenuLabel className="flex flex-col">
-						{isLoadingProfile ? (
-							<div className="space-y-1.5">
-								<Skeleton className="h-4 w-32" />
-								<Skeleton className="h-3 w-24" />
-							</div>
-						) : (
-							<>
-								<span>{profile?.name}</span>
-								<span className="font-normal text-muted-foreground text-xs">
-									{profile?.email}
-								</span>
-							</>
-						)}
+						<Suspense fallback={<ProfileInfoSkeleton />}>
+							<ProfileInfo />
+						</Suspense>
 					</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DialogTrigger asChild>

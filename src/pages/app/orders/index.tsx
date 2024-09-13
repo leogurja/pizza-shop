@@ -65,7 +65,6 @@ export function Orders() {
 							</TableBody>
 						</Table>
 					</div>
-
 					{data && (
 						<Pagination
 							pageIndex={pageIndex}
