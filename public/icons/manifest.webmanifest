@@ -1,14 +1,14 @@
 {
-  "name": "Pizza Shop",
-  "short_name": "PizzaShop",
-  "icons": [
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512"
-    },
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192"
-    }
-  ]
+	"name": "Pizza Shop",
+	"short_name": "PizzaShop",
+	"icons": [
+		{
+			"src": "icon-512.png",
+			"sizes": "512x512"
+		},
+		{
+			"src": "icon-192.png",
+			"sizes": "192x192"
+		}
+	]
 }
