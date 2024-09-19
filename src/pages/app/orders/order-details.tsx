@@ -1,3 +1,4 @@
+import { getOrderDetails } from "@/api/get-order-details";
 import {
 	DialogContent,
 	DialogHeader,
@@ -13,81 +14,121 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { useQuery } from "@tanstack/react-query";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { OrderStatus } from "./order-status";
 
-export function OrderDetails() {
+interface OrderDetailsProps {
+	orderId: string;
+	open: boolean;
+}
+
+export function OrderDetails({ orderId, open }: OrderDetailsProps) {
+	const { data } = useQuery({
+		queryKey: ["order", orderId],
+		queryFn: () => getOrderDetails(orderId),
+		enabled: open,
+	});
+
 	return (
 		<DialogContent>
 			<DialogHeader>
-				<DialogTitle>Pedido: 489073h9nvbh</DialogTitle>
+				<DialogTitle>Pedido: {orderId}</DialogTitle>
 				<DialogDescription>Detalhes do pedido</DialogDescription>
 			</DialogHeader>
+			{data && (
+				<div className="space-y-6">
+					<Table>
+						<TableBody>
+							<TableRow>
+								<TableCell className="text-muted-foreground">Status</TableCell>
+								<TableCell className="flex justify-end">
+									<OrderStatus status={data.status} />
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="text-muted-foreground">Cliente</TableCell>
+								<TableCell className="flex justify-end">
+									{data.customer.name}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="text-muted-foreground">
+									Telefone
+								</TableCell>
+								<TableCell className="flex justify-end">
+									{data.customer.phone ?? "Não informado"}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="text-muted-foreground">E-mail</TableCell>
+								<TableCell className="flex justify-end">
+									{data.customer.email}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="text-muted-foreground">
+									Realizado há
+								</TableCell>
+								<TableCell className="flex justify-end">
+									{formatDistanceToNow(data.createdAt, {
+										locale: ptBR,
+										addSuffix: true,
+									})}
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
 
-			<div className="space-y-6">
-				<Table>
-					<TableBody>
-						<TableRow>
-							<TableCell className="text-muted-foreground">Status</TableCell>
-							<TableCell className="flex justify-end">
-								<div className="flex items-center gap-2">
-									<span className="size-2 rounded-full bg-slate-400" />
-									<span className="font-medium text-muted-foreground">
-										Pendente
-									</span>
-								</div>
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead className="text-right">Produto</TableHead>
+								<TableHead className="text-right">Qtd.</TableHead>
+								<TableHead className="text-right">Preço</TableHead>
+								<TableHead className="text-right">Subtotal</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{data.orderItems.map((item) => {
+								return (
+									<TableRow key={item.id}>
+										<TableCell>{item.product.name}</TableCell>
+										<TableCell className="text-right">
+											{item.quantity}
+										</TableCell>
+										<TableCell className="text-right">
+											{(item.priceInCents / 100).toLocaleString("pt-BR", {
+												style: "currency",
+												currency: "BRL",
+											})}
+										</TableCell>
+										<TableCell className="text-right">
+											{(
+												(item.priceInCents * item.quantity) /
+												100
+											).toLocaleString("pt-BR", {
+												style: "currency",
+												currency: "BRL",
+											})}
+										</TableCell>
+									</TableRow>
+								);
+							})}
+						</TableBody>
+						<TableFooter>
+							<TableCell colSpan={3}>Total do pedido</TableCell>
+							<TableCell className="text-right font-medium">
+								{(data.totalInCents / 100).toLocaleString("pt-BR", {
+									style: "currency",
+									currency: "BRL",
+								})}
 							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="text-muted-foreground">Cliente</TableCell>
-							<TableCell className="flex justify-end">
-								Leonardo Gurgel Maciel Ferreira
-							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="text-muted-foreground">Telefone</TableCell>
-							<TableCell className="flex justify-end">21 9713-7912</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="text-muted-foreground">E-mail</TableCell>
-							<TableCell className="flex justify-end">leo@gurgel.io</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="text-muted-foreground">
-								Realizado há
-							</TableCell>
-							<TableCell className="flex justify-end">há 31 minutos</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead className="text-right">Produto</TableHead>
-							<TableHead className="text-right">Qtd.</TableHead>
-							<TableHead className="text-right">Preço</TableHead>
-							<TableHead className="text-right">Subtotal</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						<TableRow>
-							<TableCell>Pizza Pepperoni Família</TableCell>
-							<TableCell className="text-right">2</TableCell>
-							<TableCell className="text-right">R$ 69,98</TableCell>
-							<TableCell className="text-right">R$ 139,96</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>Pizza Mussarela Família</TableCell>
-							<TableCell className="text-right">1</TableCell>
-							<TableCell className="text-right">R$ 59,98</TableCell>
-							<TableCell className="text-right">R$ 59,98</TableCell>
-						</TableRow>
-					</TableBody>
-					<TableFooter>
-						<TableCell colSpan={3}>Total do pedido</TableCell>
-						<TableCell className="text-right font-medium">R$ 199,94</TableCell>
-					</TableFooter>
-				</Table>
-			</div>
+						</TableFooter>
+					</Table>
+				</div>
+			)}
 		</DialogContent>
 	);
 }
