@@ -16,21 +16,23 @@ import { OrderTableRow } from "./order-table-row";
 
 export function Orders() {
 	const [searchParams, setSearchParams] = useSearchParams();
-
+	const orderId = searchParams.get("orderId");
+	const customerName = searchParams.get("customerName");
+	const status = searchParams.get("status");
 	const pageIndex = z.coerce
 		.number()
 		.transform((page) => page - 1)
 		.parse(searchParams.get("page") ?? "1");
 
 	const { data } = useQuery({
-		queryKey: ["orders", pageIndex],
-		queryFn: () => getOrders({ pageIndex }),
+		queryKey: ["orders", pageIndex, orderId, customerName, status],
+		queryFn: () => getOrders({ pageIndex, orderId, customerName, status }),
 	});
 
 	const handlePaginate = (pageIndex: number) => {
-		setSearchParams((params) => {
-			params.set("page", (pageIndex + 1).toString());
-			return params;
+		setSearchParams((prev) => {
+			prev.set("page", (pageIndex + 1).toString());
+			return prev;
 		});
 	};
 

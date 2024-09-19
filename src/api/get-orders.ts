@@ -11,14 +11,15 @@ interface GetOrdersResponse {
 }
 
 export interface GetOrdersQuery {
-	pageIndex?: number;
+	pageIndex: number;
+	orderId: string | null;
+	customerName: string | null;
+	status: string | null;
 }
 
-export async function getOrders({ pageIndex }: GetOrdersQuery) {
+export async function getOrders({ status, ...rest }: GetOrdersQuery) {
 	const response = await api.get<GetOrdersResponse>("/orders", {
-		params: {
-			pageIndex,
-		},
+		params: { ...rest, status: status === "all" ? null : status },
 	});
 
 	return response.data;
