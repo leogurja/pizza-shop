@@ -1,7 +1,7 @@
 import type { Order } from "@/@types/order";
 import { api } from "@/lib/axios";
 
-interface GetOrdersResponse {
+export interface GetOrdersResponse {
 	orders: Order[];
 	meta: {
 		pageIndex: number;
