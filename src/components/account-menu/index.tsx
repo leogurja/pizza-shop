@@ -1,7 +1,6 @@
 import { signOut } from "@/api/sign-out";
 import { useMutation } from "@tanstack/react-query";
 import { Building, ChevronDown, LogOut } from "lucide-react";
-import { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreProfileDialog } from "../store-profile-dialog";
 import { Button } from "../ui/button";
@@ -14,8 +13,8 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { ProfileInfo, ProfileInfoSkeleton } from "./profile-info";
-import { RestaurantName, RestaurantNameSkeleton } from "./restaurant-name";
+import { ProfileInfo } from "./profile-info";
+import { RestaurantName } from "./restaurant-name";
 
 export function AccountMenu() {
 	const navigate = useNavigate();
@@ -33,17 +32,13 @@ export function AccountMenu() {
 						variant="outline"
 						className="flex select-none items-center gap-2"
 					>
-						<Suspense fallback={<RestaurantNameSkeleton />}>
-							<RestaurantName />
-						</Suspense>
+						<RestaurantName />
 						<ChevronDown className="size-4" />
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end" className="w-56">
 					<DropdownMenuLabel className="flex flex-col">
-						<Suspense fallback={<ProfileInfoSkeleton />}>
-							<ProfileInfo />
-						</Suspense>
+						<ProfileInfo />
 					</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DialogTrigger asChild>
