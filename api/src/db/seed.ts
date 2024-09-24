@@ -55,7 +55,7 @@ const [manager] = await db
 	.insert(users)
 	.values({
 		name: faker.person.fullName(),
-		email: "leonardogurgelmf@gmail.com",
+		email: "leo@gurgel.io",
 		role: "manager",
 	})
 	.returning();
