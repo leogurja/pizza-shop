@@ -19,10 +19,10 @@ export const authentication = new Elysia()
 		switch (code) {
 			case "UNAUTHORIZED":
 				set.status = 401;
-				return { code, message: error.message };
+				return { message: error.message };
 			case "NOT_A_MANAGER":
-				set.status = 401;
-				return { code, message: error.message };
+				set.status = 403;
+				return { message: error.message };
 		}
 	})
 	.use(
