@@ -1,5 +1,5 @@
 import { router } from "@/routes";
-import axios, { type AxiosResponse } from "axios";
+import axios, { isAxiosError } from "axios";
 import { env } from "../env";
 
 export const api = axios.create({
@@ -9,10 +9,9 @@ export const api = axios.create({
 
 api.interceptors.response.use(
 	(r) => r,
-	(error: { response?: AxiosResponse }) => {
-		if (error.response == null) return error;
-		if (error.response.status === 401) {
-			router.navigate("/sign-in");
+	(error) => {
+		if (isAxiosError(error) && error.response?.status === 401) {
+			router.navigate("/sign-in", { replace: true });
 		}
 		return error;
 	},
