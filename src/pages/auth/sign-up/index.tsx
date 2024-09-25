@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { createRestaurant } from "@/api/create-restaurant";
+import { createRestaurant } from "@/api/restaurant";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";

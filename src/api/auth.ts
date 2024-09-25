@@ -7,3 +7,7 @@ export interface SignInBody {
 export async function signIn(body: SignInBody) {
 	await api.post("/authenticate", body);
 }
+
+export async function signOut() {
+	await api.post("/sign-out");
+}

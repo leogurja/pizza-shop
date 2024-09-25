@@ -9,8 +9,19 @@ export interface RestaurantData {
 	managerId: string | null;
 }
 
+export interface CreateRestaurantBody {
+	restaurantName: string;
+	managerName: string;
+	email: string;
+	phone: string;
+}
+
 export async function getRestaurant() {
 	const response = await api.get<RestaurantData>("/managed-restaurant");
 
 	return response.data;
+}
+
+export async function createRestaurant(body: CreateRestaurantBody) {
+	await api.post("/restaurants", body);
 }

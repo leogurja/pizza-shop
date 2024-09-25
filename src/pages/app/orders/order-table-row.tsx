@@ -1,9 +1,12 @@
-import type { Order, OrderStatus as OrderStatusType } from "@/@types/order";
-import { approveOrder } from "@/api/approve-order";
-import { cancelOrder } from "@/api/cancel-order";
-import { deliverOrder } from "@/api/deliver-order";
-import { dispatchOrder } from "@/api/dispatch-order";
-import type { GetOrdersResponse } from "@/api/get-orders";
+import {
+	type GetOrdersResponse,
+	type Order,
+	type OrderStatus as OrderStatusType,
+	approveOrder,
+	cancelOrder,
+	deliverOrder,
+	dispatchOrder,
+} from "@/api/orders";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { TableCell, TableRow } from "@/components/ui/table";

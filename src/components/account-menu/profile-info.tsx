@@ -1,4 +1,4 @@
-import { getProfile } from "@/api/get-profile";
+import { getProfile } from "@/api/profile";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "../ui/skeleton";
 

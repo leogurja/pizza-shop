@@ -1,4 +1,4 @@
-import type { OrderStatus as OrderStatusType } from "@/@types/order";
+import type { OrderStatus as OrderStatusType } from "@/api/orders";
 import { cn } from "@/lib/utils";
 
 const orderStatusMap: Record<OrderStatusType, string> = {

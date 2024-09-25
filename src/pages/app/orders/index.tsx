@@ -1,4 +1,4 @@
-import { getOrders } from "@/api/get-orders";
+import { getOrders } from "@/api/orders";
 import { Pagination } from "@/components/pagination";
 import {
 	Table,

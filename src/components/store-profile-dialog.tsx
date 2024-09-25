@@ -1,5 +1,5 @@
-import { type RestaurantData, getRestaurant } from "@/api/get-restaurant";
-import { updateProfile } from "@/api/update-profile";
+import { updateProfile } from "@/api/profile";
+import { type RestaurantData, getRestaurant } from "@/api/restaurant";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";

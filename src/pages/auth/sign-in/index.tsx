@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { signIn } from "@/api/sign-in";
+import { signIn } from "@/api/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useSearchParams } from "react-router-dom";

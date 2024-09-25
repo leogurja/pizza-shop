@@ -1,4 +1,4 @@
-import { getRestaurant } from "@/api/get-restaurant";
+import { getRestaurant } from "@/api/restaurant";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "../ui/skeleton";
 
