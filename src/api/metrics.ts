@@ -15,6 +15,11 @@ interface GetMonthRevenueResponse {
 	diffFromLastMonth: number;
 }
 
+type GetPopularProductsResponse = {
+	product: string;
+	amount: number;
+}[];
+
 export async function getDayOrdersAmount() {
 	const response = await api.get<GetDayOrdersAmountResponse>(
 		"/metrics/day-orders-amount",
@@ -39,6 +44,13 @@ export async function getMonthCanceledOrdersAmount() {
 export async function getMonthRevenue() {
 	const response = await api.get<GetMonthRevenueResponse>(
 		"/metrics/month-receipt",
+	);
+	return response.data;
+}
+
+export async function getPopularProducts() {
+	const response = await api.get<GetPopularProductsResponse>(
+		"/metrics/popular-products",
 	);
 	return response.data;
 }
