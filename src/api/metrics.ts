@@ -20,6 +20,11 @@ type GetPopularProductsResponse = {
 	amount: number;
 }[];
 
+type GetDailyRevenueInPeriodResponse = {
+	date: string;
+	receitp: number;
+}[];
+
 export async function getDayOrdersAmount() {
 	const response = await api.get<GetDayOrdersAmountResponse>(
 		"/metrics/day-orders-amount",
@@ -51,6 +56,13 @@ export async function getMonthRevenue() {
 export async function getPopularProducts() {
 	const response = await api.get<GetPopularProductsResponse>(
 		"/metrics/popular-products",
+	);
+	return response.data;
+}
+
+export async function getDailyRevenueInPeriod() {
+	const response = await api.get<GetDailyRevenueInPeriodResponse>(
+		"/metrics/daily-receipt-in-period",
 	);
 	return response.data;
 }

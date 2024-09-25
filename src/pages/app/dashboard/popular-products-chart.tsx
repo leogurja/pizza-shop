@@ -20,6 +20,7 @@ export function PopularProductsChart() {
 		queryKey: ["metrics", "popular-products"],
 		queryFn: getPopularProducts,
 	});
+
 	return (
 		<Card className="col-span-3">
 			<CardHeader className="pb-8">
