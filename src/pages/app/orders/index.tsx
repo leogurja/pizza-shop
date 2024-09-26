@@ -13,6 +13,7 @@ import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { OrderTableFilters } from "./order-table-filters";
 import { OrderTableRow } from "./order-table-row";
+import { OrderTableSkeleton } from "./order-table-skeleton";
 
 export function Orders() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -61,9 +62,13 @@ export function Orders() {
 							</TableHeader>
 
 							<TableBody>
-								{data?.orders.map((order) => {
-									return <OrderTableRow key={order.orderId} order={order} />;
-								})}
+								{data ? (
+									data.orders.map((order) => (
+										<OrderTableRow key={order.orderId} order={order} />
+									))
+								) : (
+									<OrderTableSkeleton />
+								)}
 							</TableBody>
 						</Table>
 					</div>
