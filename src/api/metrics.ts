@@ -1,4 +1,5 @@
 import { api } from "@/lib/axios";
+import type { DateRange } from "react-day-picker";
 
 interface GetDayOrdersAmountResponse {
 	amount: number;
@@ -22,7 +23,7 @@ type GetPopularProductsResponse = {
 
 type GetDailyRevenueInPeriodResponse = {
 	date: string;
-	receitp: number;
+	receipt: number;
 }[];
 
 export async function getDayOrdersAmount() {
@@ -60,9 +61,10 @@ export async function getPopularProducts() {
 	return response.data;
 }
 
-export async function getDailyRevenueInPeriod() {
+export async function getDailyRevenueInPeriod(dateRange?: DateRange) {
 	const response = await api.get<GetDailyRevenueInPeriodResponse>(
 		"/metrics/daily-receipt-in-period",
+		{ params: dateRange },
 	);
 	return response.data;
 }

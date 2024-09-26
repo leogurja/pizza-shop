@@ -8,7 +8,12 @@ import {
 import colors from "tailwindcss/colors";
 
 import { getDailyRevenueInPeriod } from "@/api/metrics";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { Label } from "@/components/ui/label";
 import { useQuery } from "@tanstack/react-query";
+import { subDays } from "date-fns";
+import { useMemo, useState } from "react";
+import type { DateRange } from "react-day-picker";
 import {
 	CartesianGrid,
 	Line,
@@ -19,10 +24,24 @@ import {
 } from "recharts";
 
 export function RevenueChart() {
-	const { data } = useQuery({
-		queryKey: ["metrics", "daily-revenue-in-period"],
-		queryFn: getDailyRevenueInPeriod,
+	const [dateRange, setDateRange] = useState<DateRange | undefined>({
+		from: subDays(new Date(), 7),
+		to: new Date(),
 	});
+
+	const { data } = useQuery({
+		queryKey: ["metrics", "daily-revenue-in-period", dateRange],
+		queryFn: () => getDailyRevenueInPeriod(dateRange),
+	});
+
+	const chartData = useMemo(
+		() =>
+			data?.map((chartItem) => ({
+				date: chartItem.date,
+				receipt: chartItem.receipt / 100,
+			})),
+		[data],
+	);
 
 	return (
 		<Card className="col-span-6">
@@ -33,10 +52,15 @@ export function RevenueChart() {
 					</CardTitle>
 					<CardDescription>Receita diária no período</CardDescription>
 				</div>
+
+				<div className="ml-auto flex items-center gap-3">
+					<Label>Período</Label>
+					<DateRangePicker date={dateRange} onDateChange={setDateRange} />
+				</div>
 			</CardHeader>
 			<CardContent>
 				<ResponsiveContainer width="100%" height={240}>
-					<LineChart data={data} className="!text-xs">
+					<LineChart data={chartData} className="!text-xs">
 						<XAxis
 							dataKey="date"
 							tickLine={false}
