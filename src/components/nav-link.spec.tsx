@@ -10,7 +10,6 @@ describe("NavLink", () => {
 			),
 		});
 
-		wrapper.debug();
 		expect(wrapper.getByText("About").getAttribute("aria-current")).toEqual(
 			"page",
 		);
