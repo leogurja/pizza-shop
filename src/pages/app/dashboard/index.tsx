@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet-async";
-import { DailyOrdersAmount } from "./daily-orders-amount";
-import { MonthlyCanceledOrdersAmount } from "./monthly-canceled-orders-amount";
-import { MonthlyOrdersAmount } from "./monthly-orders-amount";
-import { MonthlyRevenueCard } from "./monthly-revenue";
-import { PopularProductsChart } from "./popular-products-chart";
-import { RevenueChart } from "./revenue-chart";
+import { DailyOrdersAmount } from "./cards/daily-orders-amount";
+import { MonthlyCanceledOrdersAmount } from "./cards/monthly-canceled-orders-amount";
+import { MonthlyOrdersAmount } from "./cards/monthly-orders-amount";
+import { MonthlyRevenueCard } from "./cards/monthly-revenue";
+import { PopularProductsChart } from "./charts/popular-products-chart";
+import { RevenueChart } from "./charts/revenue-chart";
 
 export function Dashboard() {
 	return (

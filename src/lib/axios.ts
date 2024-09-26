@@ -19,7 +19,7 @@ api.interceptors.response.use(
 
 if (env.VITE_ENABLE_API_DELAY) {
 	api.interceptors.request.use(async (config) => {
-		await new Promise((r) => setTimeout(r, 2000));
+		await new Promise((r) => setTimeout(r, Math.round(Math.random() * 3000)));
 		return config;
 	});
 }

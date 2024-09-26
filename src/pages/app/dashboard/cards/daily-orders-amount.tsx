@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Utensils } from "lucide-react";
+import { MetricCardSkeleton } from "./metric-card-skeleton";
 
 export function DailyOrdersAmount() {
 	const { data } = useQuery({
@@ -17,7 +18,7 @@ export function DailyOrdersAmount() {
 				<Utensils className="size-4 text-muted-foreground" />
 			</CardHeader>
 			<CardContent className="space-y-1">
-				{data && (
+				{data ? (
 					<>
 						<span className="font-bold text-2xl tracking-tight">
 							{data.amount.toLocaleString("pt-BR")}
@@ -36,6 +37,8 @@ export function DailyOrdersAmount() {
 							em relação a ontem.
 						</p>
 					</>
+				) : (
+					<MetricCardSkeleton />
 				)}
 			</CardContent>
 		</Card>
