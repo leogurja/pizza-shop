@@ -1,27 +1,27 @@
 import { api } from "@/lib/axios";
 import type { DateRange } from "react-day-picker";
 
-interface GetDayOrdersAmountResponse {
+export interface GetDayOrdersAmountResponse {
 	amount: number;
 	diffFromYesterday: number;
 }
 
-interface GetMonthOrdersAmountResponse {
+export interface GetMonthOrdersAmountResponse {
 	amount: number;
 	diffFromLastMonth: number;
 }
 
-interface GetMonthRevenueResponse {
+export interface GetMonthRevenueResponse {
 	receipt: number;
 	diffFromLastMonth: number;
 }
 
-type GetPopularProductsResponse = {
+export type GetPopularProductsResponse = {
 	product: string;
 	amount: number;
 }[];
 
-type GetDailyRevenueInPeriodResponse = {
+export type GetDailyRevenueInPeriodResponse = {
 	date: string;
 	receipt: number;
 }[];
