@@ -28,7 +28,7 @@ interface AdvanceOrderParams {
 	orderId: string;
 }
 
-interface GetOrderDetailsResponse {
+export interface GetOrderDetailsResponse {
 	id: string;
 	createdAt: string;
 	status: OrderStatus;
