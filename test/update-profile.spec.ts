@@ -15,8 +15,7 @@ test("update profile successfully", async ({ page }) => {
 	expect(toast).toBeVisible();
 
 	await page.getByRole("button", { name: "Close" }).click();
-	await page.waitForTimeout(250);
-	expect(page.getByRole("button", { name: "John Doe's" })).toBeVisible();
+	await expect(page.getByRole("button", { name: "John Doe's" })).toBeVisible();
 });
 
 test("update profile with invalid data", async ({ page }) => {
@@ -34,6 +33,5 @@ test("update profile with invalid data", async ({ page }) => {
 	expect(toast).toBeVisible();
 
 	await page.getByRole("button", { name: "Close" }).click();
-	await page.waitForTimeout(250);
-	expect(page.getByRole("button", { name: "Pizza Shop" })).toBeVisible();
+	await expect(page.getByRole("button", { name: "Pizza Shop" })).toBeVisible();
 });
