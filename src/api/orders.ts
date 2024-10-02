@@ -24,7 +24,7 @@ export interface GetOrdersResponse {
 	};
 }
 
-interface AdvanceOrderParams {
+export interface AdvanceOrderParams {
 	orderId: string;
 }
 

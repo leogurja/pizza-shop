@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 import type {
+	AdvanceOrderParams,
 	GetOrderDetailsResponse,
 	GetOrdersResponse,
 	OrderStatus,
@@ -97,4 +98,51 @@ export const getOrderDetailsMock = http.get<
 	}),
 );
 
-export const orderMocks = [getOrdersMock, getOrderDetailsMock];
+export const approveOrderMock = http.patch<AdvanceOrderParams, never, never>(
+	"/order/:orderId/approve",
+	async ({ params }) => {
+		if (params.orderId === "error-order-id") {
+			return new HttpResponse(null, { status: 400 });
+		}
+		return new HttpResponse(null, { status: 204 });
+	},
+);
+
+export const cancelOrderMock = http.patch<AdvanceOrderParams, never, never>(
+	"/order/:orderId/cancel",
+	async ({ params }) => {
+		if (params.orderId === "error-order-id") {
+			return new HttpResponse(null, { status: 400 });
+		}
+		return new HttpResponse(null, { status: 204 });
+	},
+);
+
+export const dispatchOrderMock = http.patch<AdvanceOrderParams, never, never>(
+	"/order/:orderId/dispatch",
+	async ({ params }) => {
+		if (params.orderId === "error-order-id") {
+			return new HttpResponse(null, { status: 400 });
+		}
+		return new HttpResponse(null, { status: 204 });
+	},
+);
+
+export const deliverOrderMock = http.patch<AdvanceOrderParams, never, never>(
+	"/order/:orderId/deliver",
+	async ({ params }) => {
+		if (params.orderId === "error-order-id") {
+			return new HttpResponse(null, { status: 400 });
+		}
+		return new HttpResponse(null, { status: 204 });
+	},
+);
+
+export const orderMocks = [
+	getOrdersMock,
+	getOrderDetailsMock,
+	approveOrderMock,
+	cancelOrderMock,
+	dispatchOrderMock,
+	deliverOrderMock,
+];
