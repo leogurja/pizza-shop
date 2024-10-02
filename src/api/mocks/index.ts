@@ -1,13 +1,15 @@
 import { env } from "@/env";
 import { setupWorker } from "msw/browser";
-import { createRestaurantMock } from "./create-restaurant-mock";
 import { metricsMocks } from "./metrics";
+import { profileMocks } from "./profile";
+import { restaurantMocks } from "./restaurant";
 import { signInMock } from "./sign-in-mock";
 
 export const worker = setupWorker(
 	signInMock,
-	createRestaurantMock,
+	...restaurantMocks,
 	...metricsMocks,
+	...profileMocks,
 );
 
 export async function enableMSW() {
