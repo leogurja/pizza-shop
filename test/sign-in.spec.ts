@@ -25,7 +25,7 @@ test("sign in with wrong credentials", async ({ page }) => {
 test("navigate to sign up page", async ({ page }) => {
 	await page.goto("/sign-in", { waitUntil: "networkidle" });
 
-	await page.getByRole("link", { name: "Novo estabelecimento" }).click();
+	await page.getByRole("link", { name: "Seja um parceiro" }).click();
 
 	expect(page.url()).toContain("/sign-up");
 });
