@@ -12,8 +12,10 @@ export function AppLayout() {
 			(error) => {
 				if (isAxiosError(error) && error.response?.status === 401) {
 					router.navigate("/sign-in", { replace: true });
+					return;
 				}
-				return error;
+
+				throw error;
 			},
 		);
 
