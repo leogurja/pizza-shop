@@ -21,7 +21,7 @@ export const getManagedRestaurantMock = http.get<never, never, RestaurantData>(
 	() =>
 		HttpResponse.json({
 			id: "custom-user-id",
-			name: "John Doe",
+			name: "Pizza Shop",
 			description: "Custom restaurant description.",
 			managerId: "custom-user-id",
 			createdAt: new Date(),
