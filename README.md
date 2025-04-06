@@ -1,50 +1,37 @@
-# React + TypeScript + Vite
+# Pizza Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app was built as an exercise for a course @ [Rocketseat](http://rocketseat.com.br)
 
-Currently, two official plugins are available:
+## Running Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project consumes a local api, which depends on [Bun](https://bun.sh/docs/installation), [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
+After installing those dependencies, run:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+npm run api:setup
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Afterwards, you can run the server using
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```sh
+npm i
+npm run dev & npm run dev:api
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## Testing
+
+This app uses Vitest and Playwright to run tests.
+To run tests, first you need to run
+
+```sh
+npm run test:setup
+```
+
+This will install the binaries for Playwright.
+
+Finally, use the following commands to run the tests:
+
+```sh
+npm test # runs Vitest
+npm test:e2e # runs Playwright
 ```
