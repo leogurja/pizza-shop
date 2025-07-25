@@ -1,27 +1,4 @@
-import jsPlugin from "@eslint/js";
-import reactPlugin from "eslint-plugin-react";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import config from "@gurja/eslint-config";
+import react from "@gurja/eslint-config/react";
 
-export default [
-  {
-    ignores: ["api/**/*.ts"],
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-    languageOptions: {
-      globals: globals.browser,
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-  },
-  jsPlugin.configs.recommended,
-  ...tseslint.configs.recommended,
-  reactPlugin.configs.flat.recommended,
-  reactPlugin.configs.flat["jsx-runtime"],
-];
+export default config(react({ vite: true }));
